@@ -1,0 +1,45 @@
+/*custom font*/
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+
+/*basic reset*/
+* {margin: 0; padding: 0;}
+
+html {
+  height: 100%;
+  /*Image only BG fallback*/
+
+  /*background = gradient + image pattern combo*/
+  background-image: url(img/background2.jpg)
+
+}
+
+body {
+  font-family: montserrat, arial, verdana;
+}
+
+
+.box {
+  color: white;
+  width:40%;
+  margin-left: 5%;
+
+  float: left;
+}
+
+.model{
+  margin-top: 10%;
+  margin-right: 10%;
+  text-align: center;
+  margin-bottom: 10%;
+  width:80%;
+}
+
+.visualizer{
+  background-color: blue;
+  float: left;
+  width: 50%;
+}
+
+.form-group.row{
+  align-items: center;
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='visualizer.css') }}">
+    <link href="css/visualizer.css" rel="stylesheet">
+    <script type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+    <script type="text/javascript">
+      var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script type=text/javascript>
+      $(function() {
+        var submit_form = function(e) {
+          $.getJSON($SCRIPT_ROOT + '/_display_graph', {
+            model: $('input[name="model"]').val(),
+            JSON.stringify(model);
+            N_ER: $('input[name="N_ER"]').val(),
+            N_PA: $('input[name="N_PA"]').val(),
+            N_CM: $('input[name="N_CM"]').val(),
+            N_SC: $('input[name="N_SC"]').val(),
+            N_BC: $('input[name="N_BC"]').val(),
+            NSet: $('input[name="NSet"]').val(),
+            NNeighbor: $('input[name="NNeighbor"]').val(),
+            p: $('input[name="p"]').val(),
+            addNodes: $('input[name="addNodes"]').val(),
+            PSet: $('input[name="PSet"]').val(),
+            PNeighbor: $('input[name="PNeighbor"]').val()
+          }, function(data) {
+            $('#result').text(data.result);
+            $('input[name=model]').focus().select();
+          });
+          return false;
+        };
+        $('button#create').bind('click', submit_form);
+        $('input[type=text]').bind('keydown', function(e) {
+          if (e.keyCode == 13) {
+            submit_form(e);
+          }
+        });
+        $('input[name=model]').focus();
+      });
+      // $(function() {
+      //   $('button#create').bind('click', function() {
+      //     $.getJSON($SCRIPT_ROOT + '/_display_graph', {
+      //       // model: $('input[name="model"]').val(),
+      //       // N_ER: $('input[name="N_ER"]').val(),
+      //       // N_PA: $('input[name="N_PA"]').val(),
+      //       // N_CM: $('input[name="N_CM"]').val(),
+      //       // N_SC: $('input[name="N_SC"]').val(),
+      //       // N_BC: $('input[name="N_BC"]').val(),
+      //       // NSet: $('input[name="NSet"]').val(),
+      //       // NNeighbor: $('input[name="NNeighbor"]').val(),
+      //       // p: $('input[name="p"]').val(),
+      //       // addNodes: $('input[name="addNodes"]').val(),
+      //       // PSet: $('input[name="PSet"]').val(),
+      //       // PNeighbor: $('input[name="PNeighbor"]').val()
+      //     }, function(data) {
+      //       $("#result").text(data.result);
+      //     });
+      //     return false;
+      //   });
+      // });
+    </script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $("select").change(function(){
+            $(this).find("option:selected").each(function(){
+                if($(this).attr("value")=="ER"){
+                    $(".parameter_form").not(".ER").hide();
+                    $(".ER").show();
+                    $(".create").show();
+                }
+                else if($(this).attr("value")=="PA"){
+                    $(".parameter_form").not(".PA").hide();
+                    $(".PA").show();
+                    $(".create").show();
+                }
+                else if($(this).attr("value")=="CM"){
+                    $(".parameter_form").not(".CM").hide();
+                    $(".CM").show();
+                    $(".create").show();
+                }
+                else if($(this).attr("value")=="SC"){
+                    $(".parameter_form").not(".SC").hide();
+                    $(".SC").show();
+                    $(".create").show();
+                }
+                else if($(this).attr("value")=="DR"){
+                    $(".parameter_form").not(".DR").hide();
+                    $(".DR").show();
+                    $(".create").show();
+                }
+                else if($(this).attr("value")=="BC"){
+                    $(".parameter_form").not(".BC").hide();
+                    $(".BC").show();
+                    $(".create").show();
+                }
+                else{
+                    $(".parameter_form").hide();
+                    $(".create").hide();
+                }
+            });
+        }).change();
+    });
+    </script>
+  </head>
+  <body>
+    <div class="box">
+      <form action="/visualizer/">
+        <div class="model">
+          <h3>Select a Model</h3>
+          <select class="form-control" id="model_selection" name="model">
+            <option selected="model">-----</option>
+            <option value="ER">Erdos-Renyi</option>
+            <option value="PA">Preferential Attachment</option>
+            <option value="CM">Copying Model</option>
+            <option value="SC">Stay-Connected</option>
+            <option value="BC">Bilateral Connections</option>
+          </select>
+        </div>
+
+      {# Form for each model #}
+        <div class="ER parameter_form">
+          <div class="form-group row">
+            <p>Number of vertices:</p>
+            <div class="col-sm-10">
+              <input name="N_ER" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Probability of forming an edge:</p>
+            <div class="col-sm-10">
+              <input name="p" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of Forming an Edge">
+            </div>
+          </div>
+        </div>
+
+        <div class="PA parameter_form">
+          <div class="form-group row">
+            <p>Number of Vertices:</p>
+            <div class="col-sm-10">
+              <input name="N_PA" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Number of edges to be formed for newly added vertices:</p>
+            <div class="col-sm-10">
+              <input name="addNodes" type="number" class="form-control" id="inputEmail3" placeholder="Number of edges">
+            </div>
+          </div>
+        </div>
+
+        <div class="CM parameter_form">
+          <div class="form-group row">
+            <p>Number of Vertices:</p>
+            <div class="col-sm-10">
+              <input name="N_CM" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Size of random subsets:</p>
+            <div class="col-sm-10">
+              <input name="NSet" type="number" class="form-control" id="inputEmail3" placeholder="Size of random subsets">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Probability of forming an edge with each vertex in the subset:</p>
+            <div class="col-sm-10">
+              <input name="PSet" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of forming an edge">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Maximum size of the neighborhood:</p>
+            <div class="col-sm-10">
+              <input name="NNeighbor" type="number" class="form-control" id="inputEmail3" placeholder="Maximum size of the neighborhood">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Probability of forming an edge with each vertex in the neighborhood subset:</p>
+            <div class="col-sm-10">
+              <input name="PNeighbor" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of forming an edge">
+            </div>
+          </div>
+        </div>
+
+        <div class="SC parameter_form">
+          <div class="form-group row">
+            <p>Number of Vertices:</p>
+            <div class="col-sm-10">
+              <input name="N_SC" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Cost of forming an edge:</p>
+            <div class="col-sm-10">
+              <input name="c_SC" step="0.1" type="number" class="form-control" id="inputEmail3" placeholder="Cost of forming an edge">
+            </div>
+          </div>
+        </div>
+
+        <div class="BC parameter_form">
+          <div class="form-group row">
+            <p>Number of Vertices:</p>
+            <div class="col-sm-10">
+              <input name="N_BC" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Cost of forming an edge:</p>
+            <div class="col-sm-10">
+              <input name="c_BC" step="0.1" type="number" class="form-control" id="inputEmail3" placeholder="Cost of forming an edge">
+            </div>
+          </div>
+          <div class="form-group row">
+            <p>Discount factor:</p>
+            <div class="col-sm-10">
+              <input name="delta" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Discount factor">
+            </div>
+          </div>
+        </div>
+        <div class="form-group row create">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-secondary" id="create">Create Graph</button>
+          </div>
+        </div>
+      </form>
+
+    <div class="visualizer">
+     <span id="result">?</span>
+    </div>
+  </body>
+</html>
