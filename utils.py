@@ -1,19 +1,24 @@
-import colorsys
+from colour import Color
 
-def get_N_HexCol(N=5):
-    HSV_tuples = [(0 + 1.2*x/N, 1, 0.7 - (0.7-0.588)*x/N) for x in xrange(N)]
-    hex_out = []
-    for rgb in HSV_tuples:
-        rgb = map(lambda x: int(x*255),colorsys.hsv_to_rgb(*rgb))
-        hex_out.append("".join(map(lambda x: chr(x).encode('hex'),rgb)))
-    return hex_out
+def get_N_HexCol(N):
+	hex_out = []
+	first = Color("#c9e3a0")
+	last = Color("#82bfd9")
+	for i in list(first.range_to(last, N)):
+		colorToAppend = i.hex
+		if len(colorToAppend) == 4:
+			colorToAppend = "#" + colorToAppend[1] + colorToAppend[1] + colorToAppend[2] + colorToAppend[2] + colorToAppend[3] + colorToAppend[3]
+			print colorToAppend
+			hex_out.append(colorToAppend)
+		else:
+			hex_out.append(colorToAppend)
+
+	return hex_out
 
 def remove_duplicates(values):
     output = []
     seen = set()
     for value in values:
-        # If value has not been encountered yet,
-        # ... add it to both list and set.
         if value not in seen:
             output.append(value)
             seen.add(value)
@@ -28,11 +33,11 @@ def CSSTableStyle():
 	th
 	{
 	  color: #000000;
-	  background-color: #c4ced3
+	  background-color: #eaebeb
 	}
 	td
 	{
-	  background-color: #c4ced3
+	  background-color: #eaebeb
 	}
 	table, th, td
 	{
@@ -42,5 +47,3 @@ def CSSTableStyle():
 	}
 	"""
 	return css
-
-#rgba(0, 0, 255, 0);

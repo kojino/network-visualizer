@@ -21,7 +21,7 @@ body {
 
 .box {
   color: black;
-  width:40%;
+  width:30%;
   margin-left: 5%;
 
   float: left;
@@ -36,13 +36,23 @@ body {
 }
 
 .visualizer{
-
   float: left;
-  width: 10%;
+  width: 65%;
 }
 
-.
+.buttons{
+  margin-top: 5%;
+  text-align: center;
+}
 
 .form-group.row{
+  align-items: center;
+}
+
+.form{
+  align-items: center;
+}
+
+.col-sm-offset-2.col-sm-10{
   align-items: center;
 }

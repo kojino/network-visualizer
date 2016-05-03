@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type=text/javascript src="{{url_for('static', filename='visualizer.js') }}"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css" integrity="sha384-XXXXXXXX" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/js/bootstrap.js" integrity="sha384-XXXXXXXX" crossorigin="anonymous"></script>
 
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='visualizer.css') }}">
     <link href="css/visualizer.css" rel="stylesheet">
@@ -14,6 +17,30 @@
       src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
     <script type="text/javascript">
       var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    </script>
+    <script>
+      var divs = ["result", "degree", "cluster"];
+      var visibleDivId = null;
+      function toggleVisibility(divId) {
+        if(visibleDivId === divId) {
+          visibleDivId = null;
+        } else {
+          visibleDivId = divId;
+        }
+        hideNonVisibleDivs();
+      }
+      function hideNonVisibleDivs() {
+        var i, divId, div;
+        for(i = 0; i < divs.length; i++) {
+          divId = divs[i];
+          div = document.getElementById(divId);
+          if(visibleDivId === divId) {
+            div.style.display = "block";
+          } else {
+            div.style.display = "none";
+          }
+        }
+      }
     </script>
     <script type=text/javascript>
       $(function() {
@@ -25,6 +52,8 @@
             N_CM: $('input[name="N_CM"]').val(),
             N_SC: $('input[name="N_SC"]').val(),
             N_BC: $('input[name="N_BC"]').val(),
+            opt_SC: $('input[name="opt_SC"]:checked').val(),
+            opt_BC: $('input[name="opt_BC"]:checked').val(),
             c_SC: $('input[name="c_SC"]').val(),
             c_BC: $('input[name="c_BC"]').val(),
             delta: $('input[name="delta"]').val(),
@@ -113,13 +142,13 @@
           <div class="form-group row">
             <p>Number of vertices:</p>
             <div class="col-sm-10">
-              <input name="N_ER" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+              <input name="N_ER" type="number" class="form-control" id="inputEmail3" placeholder="max 50" min="5" max="5">
             </div>
           </div>
           <div class="form-group row">
             <p>Probability of forming an edge:</p>
             <div class="col-sm-10">
-              <input name="p" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of Forming an Edge">
+              <input name="p" step="0.01" type="number" class="form-control" id="inputEmail3" min="0" max="1">
             </div>
           </div>
         </div>
@@ -128,13 +157,13 @@
           <div class="form-group row">
             <p>Number of Vertices:</p>
             <div class="col-sm-10">
-              <input name="N_PA" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+              <input name="N_PA" type="number" class="form-control" id="inputEmail3" placeholder="min 10, max 50" min="10" max="50">
             </div>
           </div>
           <div class="form-group row">
             <p>Number of edges to be formed for newly added vertices:</p>
             <div class="col-sm-10">
-              <input name="addNodes" type="number" class="form-control" id="inputEmail3" placeholder="Number of edges">
+              <input name="addNodes" type="number" class="form-control" id="inputEmail3" min="1" placeholder="min 1">
             </div>
           </div>
         </div>
@@ -143,31 +172,31 @@
           <div class="form-group row">
             <p>Number of Vertices:</p>
             <div class="col-sm-10">
-              <input name="N_CM" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+              <input name="N_CM" type="number" class="form-control" id="inputEmail3" placeholder="min 10, max 50" min="5" max="100">
             </div>
           </div>
           <div class="form-group row">
             <p>Size of random subsets:</p>
             <div class="col-sm-10">
-              <input name="NSet" type="number" class="form-control" id="inputEmail3" placeholder="Size of random subsets">
+              <input name="NSet" type="number" class="form-control" id="inputEmail3" min="1" placeholder="min 1">
             </div>
           </div>
           <div class="form-group row">
-            <p>Probability of forming an edge with each vertex in the subset:</p>
+            <p>Probability of forming edges with vertices in the subset:</p>
             <div class="col-sm-10">
-              <input name="PSet" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of forming an edge">
+              <input name="PSet" step="0.01" type="number" class="form-control" id="inputEmail3" min="0" max="1">
             </div>
           </div>
           <div class="form-group row">
             <p>Maximum size of the neighborhood:</p>
             <div class="col-sm-10">
-              <input name="NNeighbor" type="number" class="form-control" id="inputEmail3" placeholder="Maximum size of the neighborhood">
+              <input name="NNeighbor" type="number" class="form-control" id="inputEmail3" min="1" placeholder="min 1">
             </div>
           </div>
           <div class="form-group row">
-            <p>Probability of forming an edge with each vertex in the neighborhood subset:</p>
+            <p>Probability of forming edges with vertices in the neighborhood subset:</p>
             <div class="col-sm-10">
-              <input name="PNeighbor" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Probability of forming an edge">
+              <input name="PNeighbor" step="0.01" type="number" class="form-control" id="inputEmail3" min="0" max="1">
             </div>
           </div>
         </div>
@@ -176,14 +205,26 @@
           <div class="form-group row">
             <p>Number of Vertices:</p>
             <div class="col-sm-10">
-              <input name="N_SC" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+              <input name="N_SC" type="number" class="form-control" id="inputEmail3" placeholder="min 5 max 30" min="5" max="30">
             </div>
           </div>
           <div class="form-group row">
             <p>Cost of forming an edge:</p>
             <div class="col-sm-10">
-              <input name="c_SC" step="0.1" type="number" class="form-control" id="inputEmail3" placeholder="Cost of forming an edge">
+              <input name="c_SC" step="0.1" type="number" class="form-control" id="inputEmail3">
             </div>
+          </div>
+          <div class="form-group row">
+            <label class="c-input c-radio">
+              <input id="radio1" name="opt_SC" type="radio" value="1">
+              <span class="c-indicator"></span>
+              Optimize (takes time with vertices more than 20)
+            </label>
+            <label class="c-input c-radio">
+              <input id="radio2" name="opt_SC" type="radio" value="0">
+              <span class="c-indicator"></span>
+              Do Not Optimize
+            </label>
           </div>
         </div>
 
@@ -191,34 +232,64 @@
           <div class="form-group row">
             <p>Number of Vertices:</p>
             <div class="col-sm-10">
-              <input name="N_BC" type="number" class="form-control" id="inputEmail3" placeholder="Number of Vertices">
+              <input name="N_BC" type="number" class="form-control" id="inputEmail3" placeholder="max 30" min="5" max="50" placeholder="min 5, max 30">
             </div>
           </div>
           <div class="form-group row">
             <p>Cost of forming an edge:</p>
             <div class="col-sm-10">
-              <input name="c_BC" step="0.1" type="number" class="form-control" id="inputEmail3" placeholder="Cost of forming an edge">
+              <input name="c_BC" step="0.1" type="number" class="form-control" id="inputEmail3">
             </div>
           </div>
           <div class="form-group row">
             <p>Discount factor:</p>
             <div class="col-sm-10">
-              <input name="delta" step="0.01" type="number" class="form-control" id="inputEmail3" placeholder="Discount factor">
+              <input name="delta" step="0.01" type="number" class="form-control" id="inputEmail3" min="0" max"1">
             </div>
           </div>
+          <div class="form-group row">
+            <label class="c-input c-radio">
+              <input id="radio1" name="opt_SC" type="radio" value="1">
+              <span class="c-indicator"></span>
+              Optimize (takes time with vertices more than 20)
+            </label>
+            <label class="c-input c-radio">
+              <input id="radio2" name="opt_SC" type="radio" value="0">
+              <span class="c-indicator"></span>
+              Do Not Optimize
+            </label>
+          </div>
         </div>
+
         <div class="form-group row create">
           <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-secondary" id="create">Create Graph</button>
           </div>
         </div>
+
       </form>
     </div>
 
     <div class="visualizer">
+{#       <div class="buttons">
+        <a href="#" onclick="toggleVisibility('Menu1');">Menu1</a>
+        <a href="#" onclick="toggleVisibility('Menu2');">Menu2</a>
+        <a href="#" onclick="toggleVisibility('Menu3');">Menu3</a>
+        <a href="#" onclick="toggleVisibility('Menu4');">Menu4</a>
+      </div>
+
+        <div id="Menu1">I'm container one</div>
+        <div id="Menu2" style="display: none;">I'm container two</div>
+        <div id="Menu3" style="display: none;">I'm container three</div>
+        <div id="Menu4" style="display: none;">I'm container four</div> #}
+      <div class="buttons">
+        <a href="#" type="button" class="btn btn-success-outline" onclick="toggleVisibility('result');">Network</a>
+        <a href="#" type="button" class="btn btn-success-outline" onclick="toggleVisibility('degree');">Degree</a>
+        <a href="#" type="button" class="btn btn-success-outline" onclick="toggleVisibility('cluster');">Clustering</a>
+      </div>
       <div id="result"></div>
-      <div id="degree"></div>
-      <div id="cluster"></div>
+      <div id="degree" style="display: none;"></div>
+      <div id="cluster" style="display: none;"></div>
     </div>
   </body>
 </html>

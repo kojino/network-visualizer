@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 import networks, plotting
+import networkx as nx
 
 import os
 # from intro_to_flask import app
@@ -51,13 +52,19 @@ def display_graph():
   elif model == "SC":
     N=int(request.args.get('N_SC'))
     c=float(request.args.get('c_SC'))
+    opt=str(request.args.get('opt_SC'))
     G=networks.StayConnected(N, c)
+    if opt == "1":
+      G=networks.OptimizeStayConnected(G, 10)
     return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
   else:
     N=int(request.args.get('N_BC'))
     delta=float(request.args.get('delta'))
     c=float(request.args.get('c_BC'))
+    opt=str(request.args.get('opt_SC'))
     G=networks.BilateralConnection(N, delta, c)
+    if opt == "1":
+      G=networks.OptimizeBilateralconnection(G,10)
     return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
 
 if __name__ == '__main__':
