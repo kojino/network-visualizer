@@ -20,7 +20,6 @@ chaco==4.4.1
 clyent==1.2.0
 colorama==0.2.7
 colour==0.1.2
-conda==4.0.5
 conda-build==1.19.0
 conda-env==2.4.5
 configobj==5.0.5
