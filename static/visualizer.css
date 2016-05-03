@@ -35,9 +35,9 @@ body {
 }
 
 .visualizer{
-  background-color: blue;
+
   float: left;
-  width: 50%;
+  width: 10%;
 }
 
 .form-group.row{
