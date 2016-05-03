@@ -1,5 +1,5 @@
 # Standard libraries for scraping and storing data
-import requests
+import request
 import numpy as np
 import pandas as pd
 import networkx as nx # Library for Graphs
