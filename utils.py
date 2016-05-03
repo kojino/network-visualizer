@@ -28,11 +28,11 @@ def CSSTableStyle():
 	th
 	{
 	  color: #000000;
-	  background-color: rgba(0, 0, 255, 0.6);
+	  background-color: #c4ced3
 	}
 	td
 	{
-	  background-color: rgba(0, 0, 255, 0.6);
+	  background-color: #c4ced3
 	}
 	table, th, td
 	{
@@ -43,3 +43,4 @@ def CSSTableStyle():
 	"""
 	return css
 
+#rgba(0, 0, 255, 0);

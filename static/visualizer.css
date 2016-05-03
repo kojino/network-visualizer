@@ -9,9 +9,10 @@ html {
   /*Image only BG fallback*/
 
   /*background = gradient + image pattern combo*/
-  background-image: url(img/background2.jpg)
+  background-image: url(img/background3.jpg)
 
 }
+
 
 body {
   font-family: montserrat, arial, verdana;
@@ -19,7 +20,7 @@ body {
 
 
 .box {
-  color: white;
+  color: black;
   width:40%;
   margin-left: 5%;
 
@@ -39,6 +40,8 @@ body {
   float: left;
   width: 10%;
 }
+
+.
 
 .form-group.row{
   align-items: center;

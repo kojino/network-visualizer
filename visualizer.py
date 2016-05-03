@@ -34,12 +34,12 @@ def display_graph():
     N=int(request.args.get('N_ER'))
     p=float(request.args.get('p'))
     G=networks.ErdosRenyi(N, p)
-    return jsonify(result=plotting.PlotNetwork(G))
+    return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
   elif model == "PA":
     N=int(request.args.get('N_PA'))
     addNodes=int(request.args.get('addNodes'))
     G=networks.PrefferentialAttachement(N, addNodes)
-    return jsonify(result=plotting.PlotNetwork(G))
+    return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
   elif model == "CM":
     N=int(request.args.get('N_CM'))
     NSet=int(request.args.get('NSet'))
@@ -47,19 +47,18 @@ def display_graph():
     PSet=float(request.args.get('PSet'))
     PNeighbor=float(request.args.get('PNeighbor'))
     G=networks.Copying(N, NSet, NNeighbor, PSet, PNeighbor)
-    return jsonify(result=plotting.PlotNetwork(G))
+    return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
   elif model == "SC":
     N=int(request.args.get('N_SC'))
     c=float(request.args.get('c_SC'))
     G=networks.StayConnected(N, c)
-    return jsonify(result=plotting.PlotNetwork(G))
+    return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
   else:
     N=int(request.args.get('N_BC'))
     delta=float(request.args.get('delta'))
     c=float(request.args.get('c_BC'))
     G=networks.BilateralConnection(N, delta, c)
-    return jsonify(result=plotting.PlotNetwork(G))
+    return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
 
 if __name__ == '__main__':
-  app.debug=True
   app.run(debug=True)

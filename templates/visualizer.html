@@ -2,6 +2,7 @@
 
 <html lang="en" class="no-js">
   <head>
+    <title>Network Visualizer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -24,6 +25,9 @@
             N_CM: $('input[name="N_CM"]').val(),
             N_SC: $('input[name="N_SC"]').val(),
             N_BC: $('input[name="N_BC"]').val(),
+            c_SC: $('input[name="c_SC"]').val(),
+            c_BC: $('input[name="c_BC"]').val(),
+            delta: $('input[name="delta"]').val(),
             NSet: $('input[name="NSet"]').val(),
             NNeighbor: $('input[name="NNeighbor"]').val(),
             p: $('input[name="p"]').val(),
@@ -32,6 +36,8 @@
             PNeighbor: $('input[name="PNeighbor"]').val()
           }, function(data) {
             $('#result').html(data.result);
+            $('#degree').html(data.degree);
+            $('#cluster').html(data.cluster);
           });
           return false;
         };
@@ -42,27 +48,6 @@
           }
         });
       });
-      // $(function() {
-      //   $('button#create').bind('click', function() {
-      //     $.getJSON($SCRIPT_ROOT + '/_display_graph', {
-      //       // model: $('input[name="model"]').val(),
-      //       // N_ER: $('input[name="N_ER"]').val(),
-      //       // N_PA: $('input[name="N_PA"]').val(),
-      //       // N_CM: $('input[name="N_CM"]').val(),
-      //       // N_SC: $('input[name="N_SC"]').val(),
-      //       // N_BC: $('input[name="N_BC"]').val(),
-      //       // NSet: $('input[name="NSet"]').val(),
-      //       // NNeighbor: $('input[name="NNeighbor"]').val(),
-      //       // p: $('input[name="p"]').val(),
-      //       // addNodes: $('input[name="addNodes"]').val(),
-      //       // PSet: $('input[name="PSet"]').val(),
-      //       // PNeighbor: $('input[name="PNeighbor"]').val()
-      //     }, function(data) {
-      //       $("#result").text(data.result);
-      //     });
-      //     return false;
-      //   });
-      // });
     </script>
 
     <script type="text/javascript">
@@ -231,7 +216,9 @@
     </div>
 
     <div class="visualizer">
-     <span id="result">?</span>
+      <div id="result"></div>
+      <div id="degree"></div>
+      <div id="cluster"></div>
     </div>
   </body>
 </html>
