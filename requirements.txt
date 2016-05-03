@@ -132,5 +132,4 @@ virtualenv==15.0.1
 Werkzeug==0.9.6
 xlrd==0.9.3
 XlsxWriter==0.5.5
-xlwings==0.6.4
 xlwt==0.7.5
