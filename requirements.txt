@@ -76,7 +76,7 @@ numpy==1.11.0
 odo==0.4.0
 openpyxl==1.8.5
 pandas==0.18.0
-path.py==0.0.0
+path.py==8.2.1
 patsy==0.2.1
 pep8==1.5.6
 pexpect==3.3
