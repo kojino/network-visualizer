@@ -19,7 +19,6 @@
         var submit_form = function(e) {
           $.getJSON($SCRIPT_ROOT + '/_display_graph', {
             model: $('input[name="model"]').val(),
-            JSON.stringify(model);
             N_ER: $('input[name="N_ER"]').val(),
             N_PA: $('input[name="N_PA"]').val(),
             N_CM: $('input[name="N_CM"]').val(),
@@ -33,7 +32,6 @@
             PNeighbor: $('input[name="PNeighbor"]').val()
           }, function(data) {
             $('#result').text(data.result);
-            $('input[name=model]').focus().select();
           });
           return false;
         };
@@ -43,7 +41,6 @@
             submit_form(e);
           }
         });
-        $('input[name=model]').focus();
       });
       // $(function() {
       //   $('button#create').bind('click', function() {

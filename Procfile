@@ -1,1 +1,1 @@
-web: gunicorn visualizer:app --log-file -
+web: gunicorn visualizer:app
