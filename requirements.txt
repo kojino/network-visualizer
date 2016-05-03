@@ -28,7 +28,6 @@ cytoolz==0.7.5
 DataShape==0.5.2
 decorator==4.0.9
 docutils==0.11
-enable==4.5.1
 enaml==0.9.1
 enum34==1.1.2
 et-xmlfile==1.0.1
