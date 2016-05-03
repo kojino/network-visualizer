@@ -1,1 +1,1 @@
-web: python visualizer.py $PORT
+web: gunicorn visualizer:app
