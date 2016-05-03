@@ -24,15 +24,14 @@ def visualizer():
 @app.route('/_display_graph/')
 
 def display_graph():
-  model = request.form.get("model", "none", type=str)
+  model = request.args.get("model", "none", type=str)
   # model = str(request.form.get('model'))
-  return jsonify(result=model)
 
-  # if model == "ER":
-  #   N=int(request.form.get('N_ER'))
-  #   p=float(request.form.get('p'))
-  #   G=networks.ErdosRenyi(N, p)
-  #   return jsonify(result=lotting.PlotNetwork(G))
+  if model == "ER":
+    N=int(request.args.get('N_ER'))
+    p=float(request.args.get('p'))
+    G=networks.ErdosRenyi(N, p)
+    return jsonify(result=plotting.PlotNetwork(G))
   # elif model == "PA":
   #   N=int(request.form.get('N_PA'))
   #   addNodes=int(request.form.get('addNodes'))
