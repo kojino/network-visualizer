@@ -18,7 +18,7 @@
       $(function() {
         var submit_form = function(e) {
           $.getJSON($SCRIPT_ROOT + '/_display_graph', {
-            model: $('input[name="model"]').val(),
+            model: $('select[name="model"]').val(),
             N_ER: $('input[name="N_ER"]').val(),
             N_PA: $('input[name="N_PA"]').val(),
             N_CM: $('input[name="N_CM"]').val(),
@@ -31,7 +31,7 @@
             PSet: $('input[name="PSet"]').val(),
             PNeighbor: $('input[name="PNeighbor"]').val()
           }, function(data) {
-            $('#result').text(data.result);
+            $('#result').html(data.result);
           });
           return false;
         };
