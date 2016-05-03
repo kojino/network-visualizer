@@ -24,8 +24,6 @@ def visualizer():
 @app.route('/_display_graph/')
 
 def display_graph():
-  N=request.form.get('N_ER')
-  print N
   model = request.form.get("model", "none", type=str)
   # model = str(request.form.get('model'))
   return jsonify(result=model)
