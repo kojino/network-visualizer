@@ -133,4 +133,3 @@ Werkzeug==0.9.6
 xlrd==0.9.3
 XlsxWriter==0.5.5
 xlwt==0.7.5
-enable==4.5.1
