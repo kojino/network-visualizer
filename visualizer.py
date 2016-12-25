@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import networks, plotting
 import networkx as nx
 
@@ -15,12 +15,6 @@ app = Flask(__name__)
 def home():
 
     return render_template('home.html')
-
-@app.route('/about/')
-
-def about():
-
-    return render_template('about.html')
 
 @app.route('/visualizer/')
 
@@ -66,6 +60,10 @@ def display_graph():
     if opt == "1":
       G=networks.OptimizeBilateralconnection(G,10)
     return jsonify(result=plotting.PlotNetwork(G),degree=plotting.PlotDegreeDistribution(G),cluster=plotting.PlotClusterDistribution(G))
+
+@app.route('/about/')
+def pdf():
+    return send_file('./templates/report.pdf', attachment_filename='report.pdf')
 
 if __name__ == '__main__':
   app.run(debug=True)

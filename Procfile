@@ -1,1 +1,1 @@
-web: gunicorn visualizer:app
+web: python visualizer.py
